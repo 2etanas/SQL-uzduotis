@@ -1,0 +1,92 @@
+Pirma lentelė 3 uzduotis:
+
+SELECT officeCode FROM offices WHERE country="USA" 
+
+SELECT employees.lastName, employees.firstName, offices.country FROM employees WHERE officeCode IN (SELECT officeCode FROM offices WHERE country="USA") 
+
+
+mano
+SELECT employees.lastName, employees.firstName, offices.country
+FROM employees, offices
+WHERE employees.officeCode = offices.officeCode
+
+
+3. SELECT
+    lastName,
+    firstName,
+    "USA" as country
+FROM employees
+WHERE officeCode IN (SELECT officeCode FROM offices WHERE country="USA")
+
+
+Antra lentelė 4 uzduotis:
+
+SELECT customers.customerNumber as cN, customers.customerName, payments.checkNumber, payments.amount
+FROM customers, payments
+WHERE customers.customerNumber = payments.customerNumber AND payments.amount = (SELECT MAX(payments.amount) FROM payments)
+
+
+4. SELECT
+    customerNumber as cN,
+    (SELECT customerName FROM customers WHERE customerNumber = cN) as customerName,
+    checkNumber,
+    amount
+FROM payments
+WHERE amount=(SELECT MAX(amount) FROM payments)
+
+
+
+
+
+
+Trečia lentelė:
+
+SELECT customers.customerNumber as cN, customers.customerName, payments.checkNumber, payments.amount, (SELECT avg(payments.amount) FROM payments) as average
+FROM customers, payments
+WHERE customers.customerNumber = payments.customerNumber AND payments.amount > (SELECT avg(payments.amount) FROM payments)
+
+
+
+
+
+Ketvirta lentelė, 6 uzduotis:
+
+6.SELECT
+    customerName,
+    'No Orders' as noOrder
+FROM customers
+WHERE customerNumber NOT IN (SELECT DISTINCT customerNumber FROM `orders`)
+
+
+
+
+Penkta lentelė, 7 uzduotis
+
+
+
+SELECT "prekių skaičius užsakymuose" AS Title,  max(orderdetails.orderLineNumber) as Max_, min(orderdetails.orderLineNumber) as Min_, AVG(orderdetails.orderLineNumber) as Avg_  
+
+FROM `orderdetails` 
+
+WHERE 1
+
+
+7. SELECT
+    "Prekių pozicijos užsakymuose" as Title,
+    MAX(items) as Max_,
+    MIN(items) as Min_,
+    ROUND(AVG(items),0) as Avg_
+FROM
+(SELECT orderNumber, COUNT(orderNumber) AS items FROM orderdetails GROUP BY orderNumber) t1
+
+
+
+
+Šešta lentelė:
+
+
+
+
+
+
+
